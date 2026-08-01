@@ -66,6 +66,15 @@ class Camera_Detection:
 		# HAND CONNECTORS
 		result = landmarker.detect_for_video(mp_image, timestamp_ms) # hand_landmarker_result
 
+		connection = [
+		(0,1),(1,2),(2,3),(3,4),	# thumb
+		(0,5),(5,6),(6,7),(7,8),	# index finger
+		(0,9),(9,10),(10,11),(11,12),	# middle finger
+		(0,13),(13,14),(14,15),(15,16),	# ring finger
+		(0,17),(17,18),(18,19),(19,20),	# pinky
+		(5,9),(9,13),(13,17)		# palm
+		]
+
 		height, width, throwaway = frame.shape # get the actual frame dimensions
 
 		for i in result.hand_landmarks:
@@ -73,7 +82,13 @@ class Camera_Detection:
 				x = int(j.x*width)
 				y = int(j.y*height)
 
-				cv.circle(frame,(x, y), 2, (0,255,0), -1)
+				cv.circle(frame,(x, y), 3, (0,255,0), -1)
+
+			for start, end in connection:
+				x1, y1 = int(i[start].x*width), int(i[start].y*height)
+				x2, y2 = int(i[end].x*width), int(i[end].y*height)
+
+				cv.line(frame,(x1, y1),(x2, y2),(255,0,0),3)
 
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
