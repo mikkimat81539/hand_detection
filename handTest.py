@@ -59,28 +59,39 @@ while running:
 	# 2)Draw a small dot/circle at each landmark point
 	# 3)Draw lines between specific landmarks
 
+	# HAND CONNECTIONS
+	connections = [
+		(0,1),(1,2),(2,3),(3,4),	# thumb
+		(0,5),(5,6),(6,7),(7,8),	# index finger
+		(0,9),(9,10),(10,11),(11,12),	# middle finger
+		(0,13),(13,14),(14,15),(15,16),	# ring finger
+		(0,17),(17,18),(18,19),(19,20),	# pinky
+		(5,9),(9,13),(13,17)		# palm
+	]
+
 	height, width, throwaway= frame.shape # get the actual frame dimensions:
 
 	for i in hand_landmarker_result.hand_landmarks: # this grabs the list of 21 hand connectors
+
+		line_landmarks = [] # # store the 21 points for this hand
+
 		for landmark in i: # this allows me to grab each individual point on its axis
 			x = int(landmark.x*width) # x values for landmarker
 			y = int(landmark.y*height) # y value from landmarker
 
-			#print(x, y)
-	
-			landmark_index = i.index(landmark)
+			line_landmarks.append((x, y))
 
-			start_x = int(i[landmark_index].x * width)
-			end_y = int(i[landmark_index].y * height)
+			cv.circle(frame, (x,y), 10, (0,0,255), -1) # img, (x, y), radius, color, thickness	
 
-			cv.circle(frame, (x,y), 10, (0,255,0), -1) # img, (x, y), radius, color, thickness	
+		for start, end in connections:
+			x1, y1 = line_landmarks[start]
+			x2, y2 = line_landmarks[end]
+			cv.line(frame, (x1, y1), (x2, y2), (255, 255, 255), 10)		
 
-			cv.line(frame, (x, y), (start_x, end_y), (0, 0, 255), 10)
-		
 
 	# EXAMPLE of drawing shapes
 	#cv.circle(frame,(447,63), 20, (255,0,0), -1) # img, (x, y), radius, color, thickness	
-	#cv.line(frame, (100, 100), (200, 10), (0, 0, 255), 10) # img, (x, y), (start, end), color, thickness
+	#cv.line(frame, (100, 100), (200, 10), (0, 0, 255), 10) # img, (start_x,start_y), (end_x, end_y), color, thickness
 
 
 	# Handle and display results
