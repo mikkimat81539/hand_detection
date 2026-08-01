@@ -14,7 +14,6 @@ BaseOptions = mp.tasks.BaseOptions
 HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
-HandLandmarkerResult = mp.tasks.vision.HandLandmarkerResult
 
 # DEFINE MODEL
 MODEL_PATH = "assets/hand_landmarker.task"
