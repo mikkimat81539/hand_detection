@@ -11,46 +11,47 @@ from numpy import *
 
 
 class Camera_Detection:
-	def Camera(surface):
-		# TIME
-		start_time = time.time()
-		
-
-		# DEFINE TASKS
-		BaseOptions = mp.tasks.BaseOptions
-		HandLandmarker = mp.tasks.vision.HandLandmarker
-		HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
-		VisionRunningMode = mp.tasks.vision.RunningMode
-
-		# LOAD MODEL
-		MODEL_PATH = "assets/hand_landmarker.task"
-
-		# CREATE TASKS
-		options = HandLandmarkerOptions(
-			base_options = BaseOptions(model_asset_path=MODEL_PATH),
-			running_mode=VisionRunningMode.VIDEO,
-			min_hand_detection_confidence = 0.5,
-			min_hand_presence_confidence = 0.5,
-			min_tracking_confidence = 0.5,
-			num_hands = 2
-		)	
-		
-		landmarker = HandLandmarker.create_from_options(options)
+	# TIME
+	start_time = time.time()
 	
 
-		# LOAD CAMERA FROM OPENCV	
-		cap = cv.VideoCapture(1)
-		
-		if not cap.isOpened():
-			exit()
+	# DEFINE TASKS
+	BaseOptions = mp.tasks.BaseOptions
+	HandLandmarker = mp.tasks.vision.HandLandmarker
+	HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
+	VisionRunningMode = mp.tasks.vision.RunningMode
 
+	# LOAD MODEL
+	MODEL_PATH = "assets/hand_landmarker.task"
+
+	# CREATE TASKS
+	options = HandLandmarkerOptions(
+		base_options = BaseOptions(model_asset_path=MODEL_PATH),
+		running_mode=VisionRunningMode.VIDEO,
+		min_hand_detection_confidence = 0.5,
+		min_hand_presence_confidence = 0.5,
+		min_tracking_confidence = 0.5,
+		num_hands = 2
+	)	
+	
+	landmarker = HandLandmarker.create_from_options(options)
+
+
+	# LOAD CAMERA FROM OPENCV	
+	cap = cv.VideoCapture(1)
+
+	if not cap.isOpened():
+		exit()
+
+	@staticmethod
+	def Camera(surface):
 		# capture frame by frame
-		ret, frame = cap.read()
+		ret, frame = Camera_Detection.cap.read()
 
 		if not ret:
-			running = False
+			exit()
 
-		timestamp_ms = int((time.time() - start_time) * 1000)
+		timestamp_ms = int((time.time() - Camera_Detection.start_time) * 1000)
 
 		# CAMERA WINDOW
 		frame = np.fliplr(frame) # flip camera
@@ -64,7 +65,7 @@ class Camera_Detection:
 		mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
 
 		# HAND CONNECTORS
-		result = landmarker.detect_for_video(mp_image, timestamp_ms) # hand_landmarker_result
+		result = Camera_Detection.landmarker.detect_for_video(mp_image, timestamp_ms) # hand_landmarker_result
 
 		connection = [
 		(0,1),(1,2),(2,3),(3,4),	# thumb
@@ -82,18 +83,18 @@ class Camera_Detection:
 				x = int(j.x*width)
 				y = int(j.y*height)
 
-				cv.circle(frame,(x, y), 3, (0,255,0), -1)
+				cv.circle(frame,(x, y), 3, (255,0,0), -1)
 
 			for start, end in connection:
 				x1, y1 = int(i[start].x*width), int(i[start].y*height)
 				x2, y2 = int(i[end].x*width), int(i[end].y*height)
 
-				cv.line(frame,(x1, y1),(x2, y2),(255,0,0),3)
+				cv.line(frame,(x1, y1),(x2, y2),(0,255,0),1)
 
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
 
 		surface.blit(camArray, (0, 0)) # BLIT ONTO PYGAME SURFACE
 
-		cap.release()
-		cv.destroyAllWindows()
+#		cap.release()
+#		cv.destroyAllWindows()
