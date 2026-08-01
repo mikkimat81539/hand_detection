@@ -58,7 +58,7 @@ while running:
 	# 2)Draw a small dot/circle at each landmark point
 	# 3)Draw lines between specific landmarks
 
-	# HAND CONNECTIONS
+	# HAND CONNECTIONS --> each are index for the hand points
 	connections = [
 		(0,1),(1,2),(2,3),(3,4),	# thumb
 		(0,5),(5,6),(6,7),(7,8),	# index finger
@@ -72,7 +72,7 @@ while running:
 
 	for i in hand_landmarker_result.hand_landmarks: # this grabs the list of 21 hand connectors
 
-		line_landmarks = [] # # store the 21 points for this hand
+		line_landmarks = [] # store the 21 points for the hands so we can connect them
 
 		for landmark in i: # this allows me to grab each individual point on its axis
 			x = int(landmark.x*width) # x values for landmarker
