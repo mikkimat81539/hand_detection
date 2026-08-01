@@ -59,7 +59,6 @@ while running:
 	# 2)Draw a small dot/circle at each landmark point
 	# 3)Draw lines between specific landmarks
 
-
 	height, width, throwaway= frame.shape # get the actual frame dimensions:
 
 	for i in hand_landmarker_result.hand_landmarks: # this grabs the list of 21 hand connectors
@@ -68,8 +67,16 @@ while running:
 			y = int(landmark.y*height) # y value from landmarker
 
 			#print(x, y)
+	
+			landmark_index = i.index(landmark)
 
-			cv.circle(frame,(x,y), 10, (0,255,0), -1) # img, (x, y), radius, color, thickness	
+			start_x = int(i[landmark_index].x * width)
+			end_y = int(i[landmark_index].y * height)
+
+			cv.circle(frame, (x,y), 10, (0,255,0), -1) # img, (x, y), radius, color, thickness	
+
+			cv.line(frame, (x, y), (start_x, end_y), (0, 0, 255), 10)
+		
 
 	# EXAMPLE of drawing shapes
 	#cv.circle(frame,(447,63), 20, (255,0,0), -1) # img, (x, y), radius, color, thickness	
