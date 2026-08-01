@@ -3,8 +3,6 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 import cv2 as cv
 import time
-import numpy as np
-from numpy import *
 
 # TIME
 start_time = time.time()
