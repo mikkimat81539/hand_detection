@@ -25,15 +25,14 @@ class Player:
 		# print(x, y)
 
 		if d <= 0.25:
-			self.rect.x += self.velocity_x 	
-		
+			self.rect.x -= self.velocity_x 	
+
+			if self.rect.x <= 1:
+				self.rect.x += self.velocity_x
+
 		elif d > 0.25:
-			self.rect.x -= self.velocity_x
+			self.rect.x += self.velocity_x
 
-
-	def reset_player(self):
-		self.rect.x = 400
-		self.rect.y = 230	
-#		self.velocity_x = 0
-#		self.velocity_y = 0
+			if self.rect.x >= surface.get_width()-self.width:
+				self.rect.x -= self.velocity_x
 

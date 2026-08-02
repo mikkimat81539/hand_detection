@@ -88,16 +88,14 @@ class Camera_Detection:
 				x = int(j.x*width)
 				y = int(j.y*height)
 
-				# MOVE PLAYER USING HANDS
-				# Camera_Detection.player.player_movement(surface, x, y)
+
+				# PLAYER MOVEMENT
+				# Camera_Detection.player.player_movement(surface, x, y, d)
 
 
 				# DISPLAY PLAYER USING HAND
-				# Camera_Detection.player.activate = True
 				Camera_Detection.player.draw_player(surface)
 
-#				if Camera_Detection.player.activate:
-#					Camera_Detection.player.reset_player()
 
 				# DRAW DOTS ON HANDS
 				cv.circle(frame,(x, y), 3, (255,0,0), -1)
@@ -116,11 +114,11 @@ class Camera_Detection:
 				dy = (i[8].y - i[4].y)**2
 
 				d = math.sqrt(dx + dy)
-				print(d)
+				# print(d)
 
 				# DRAWS ON CONNECTION 4 and 8
 				if end == 4:
-					cv.circle(frame,(x2, y2), 4, (255,255,0), 0)
+					cv.circle(frame,(x1, y1), 4, (255,255,0), 0)
 
 	
 				if end == 8:
@@ -132,9 +130,8 @@ class Camera_Detection:
 
 
 				# PLAYER MOVEMENT
-				Camera_Detection.player.player_movement(surface, x, y, d)
-
-
+				Camera_Detection.player.player_movement(surface, (x2-x1), (y2-y1), d)
+			
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
 
