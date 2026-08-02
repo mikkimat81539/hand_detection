@@ -16,7 +16,9 @@ pygame.display.set_caption("Telekinesis")
 
 
 # IMAGES
-brain = pygame.transform.scale(pygame.image.load("assets/brain.png"), (128, 128))
+brain = pygame.transform.scale(pygame.image.load("assets/brain.png"), (128, 128)) # brain image
+
+trash_bin = pygame.transform.scale(pygame.image.load("assets/trash_bin.png"), (256, 256)) # trash_bin image
 
 # GAME LOOP
 running = True
@@ -36,7 +38,9 @@ while running:
 	Camera_Detection.Camera(screen)
 
 	# DRAW
-	screen.blit(brain, (350, screen.get_height()//2))
+	screen.blit(brain, (350, 250))
+	screen.blit(trash_bin, (550, 350))
+	
 
 	pygame.display.update()
 
