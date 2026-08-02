@@ -87,7 +87,12 @@ class Camera_Detection:
 				x = int(j.x*width)
 				y = int(j.y*height)
 
-				Camera_Detection.player.player_movement(x, y)
+
+				# MOVE PLAYER USING HANDS
+				Camera_Detection.player.player_movement(x, y, width, height)
+
+				# DISPLAY PLAYER USING HAND
+				Camera_Detection.player.player_detect(x, y)
 
 				Camera_Detection.player.draw_player(surface)
 

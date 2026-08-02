@@ -6,6 +6,9 @@ from playerObject import *
 
 pygame.init()
 
+# TIME
+clock = pygame.time.Clock()
+
 # SCREEN
 flags = pygame.FULLSCREEN
 screen = pygame.display.set_mode((800, 600))
@@ -29,7 +32,8 @@ while running:
 	# CAMERA OBJECT
 	Camera_Detection.Camera(screen)
 
-
 	pygame.display.update()
+
+	clock.tick(60)
 
 pygame.quit()
