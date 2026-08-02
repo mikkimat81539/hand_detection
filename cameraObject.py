@@ -46,7 +46,7 @@ class Camera_Detection:
 		exit()
 
 	# LOAD PLAYER
-	player = Player(400, 230, 128, 128, "black")
+	player = Player(400, 230, 64, 64, "black")
 
 	@staticmethod
 	def Camera(surface):
