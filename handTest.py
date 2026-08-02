@@ -68,6 +68,8 @@ while running:
 
 	height, width, throwaway= frame.shape # get the actual frame dimensions:
 
+	print(hand_landmarker_result.handedness)
+
 	for i in hand_landmarker_result.hand_landmarks: # this grabs the list of 21 hand connectors
 
 		line_landmarks = [] # store the 21 points for the hands so we can connect them

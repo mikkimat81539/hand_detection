@@ -9,6 +9,7 @@ import time
 import numpy as np
 from numpy import *
 from playerObject import *
+import math
 
 
 class Camera_Detection:
@@ -32,7 +33,7 @@ class Camera_Detection:
 		min_hand_detection_confidence = 0.5,
 		min_hand_presence_confidence = 0.5,
 		min_tracking_confidence = 0.5,
-		num_hands = 2
+		num_hands = 1
 	)	
 	
 	landmarker = HandLandmarker.create_from_options(options)
@@ -63,7 +64,7 @@ class Camera_Detection:
 	
 		frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-		frame = cv.resize(frame, (240, 320)) # resize camera screen
+		frame = cv.resize(frame, (140, 220)) # resize camera screen
 
 		# Convert the frame received from OpenCV to a MediaPipe’s Image object.
 		mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
@@ -87,23 +88,46 @@ class Camera_Detection:
 				x = int(j.x*width)
 				y = int(j.y*height)
 
-
 				# MOVE PLAYER USING HANDS
 				# Camera_Detection.player.player_movement(surface, x, y)
 
 
 				# DISPLAY PLAYER USING HAND
+				# Camera_Detection.player.activate = True
 				Camera_Detection.player.draw_player(surface)
+
+#				if Camera_Detection.player.activate:
+#					Camera_Detection.player.reset_player()
 
 				# DRAW DOTS ON HANDS
 				cv.circle(frame,(x, y), 3, (255,0,0), -1)
 
 			# DRAW LINES ON HANDS
 			for start, end in connection:
-				x1, y1 = int(i[start].x*width), int(i[start].y*height)
-				x2, y2 = int(i[end].x*width), int(i[end].y*height)
+#				x1, y1 = int(i[start].x*width), int(i[start].y*height)
+#				x2, y2 = int(i[end].x*width), int(i[end].y*height)
 
-				cv.line(frame,(x1, y1),(x2, y2),(0,255,0),1)
+				x1, y1 = int(i[4].x*width), int(i[4].y*height)
+				x2, y2 = int(i[8].x*width), int(i[8].y*height)
+		
+
+				# DISTANCE FORMULA BETWEEN POINT 8 AND 4
+				dx = (i[8].x - i[4].x)**2
+				dy = (i[8].y - i[4].y)**2
+
+				d = math.sqrt(dx + dy)
+				#print(d)
+
+				# DRAWS ON CONNECTION 4 and 8
+				if end == 4:
+					cv.circle(frame,(x2, y2), 4, (255,255,0), 0)
+
+	
+				if end == 8:
+					cv.circle(frame,(x2, y2), 4, (0,255,0), 0)
+
+
+				cv.line(frame,(x1, y1),(x2, y2),(0,255,0),3)
 
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
