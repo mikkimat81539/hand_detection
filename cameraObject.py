@@ -64,7 +64,7 @@ class Camera_Detection:
 	
 		frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-		frame = cv.resize(frame, (140, 220)) # resize camera screen
+		frame = cv.resize(frame, (240, 320)) # resize camera screen
 
 		# Convert the frame received from OpenCV to a MediaPipe’s Image object.
 		mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
