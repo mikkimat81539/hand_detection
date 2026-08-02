@@ -116,7 +116,7 @@ class Camera_Detection:
 				dy = (i[8].y - i[4].y)**2
 
 				d = math.sqrt(dx + dy)
-				#print(d)
+				print(d)
 
 				# DRAWS ON CONNECTION 4 and 8
 				if end == 4:
@@ -127,7 +127,13 @@ class Camera_Detection:
 					cv.circle(frame,(x2, y2), 4, (0,255,0), 0)
 
 
+				# DRAW LINE ON HAND
 				cv.line(frame,(x1, y1),(x2, y2),(0,255,0),3)
+
+
+				# PLAYER MOVEMENT
+				Camera_Detection.player.player_movement(surface, x, y, d)
+
 
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface

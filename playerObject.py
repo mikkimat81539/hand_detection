@@ -13,7 +13,7 @@ class Player:
 
 		self.activate = False
 
-		self.velocity_x = 3
+		self.velocity_x = 1
 		self.velocity_y = 2
 
 
@@ -21,11 +21,14 @@ class Player:
 		pygame.draw.rect(surface, self.color, self.rect)	
 
 
-	def player_movement(self, surface, x, y):
+	def player_movement(self, surface, x, y, d):
 		# print(x, y)
 
-		if self.rect.x > 0.4:
-			self.rect.x -= self.velocity_x 	
+		if d <= 0.25:
+			self.rect.x += self.velocity_x 	
+		
+		elif d > 0.25:
+			self.rect.x -= self.velocity_x
 
 
 	def reset_player(self):
