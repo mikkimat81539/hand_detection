@@ -20,12 +20,22 @@ heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256)
 
 heart_rect = heart.get_rect(topleft=(550, 350))
 
+# PLAYER
 PLAYER = Camera_Detection().player
+
+# AUDIO
+normal_heart = pygame.mixer.music.load("audio/norm_heart_beat.mp3")
+# fast_heart = pygame.mixer.music.load("audio/fast_heart_beat.mp3")
+# flatline = pygame.mixer.music.load("audio/flatline.mp3")
+
+pygame.mixer.music.play(1000)
+	
 
 # PLAYER HEART COLLISION
 def player_heart(player, heart_rect):
 	if player.rect.colliderect(heart_rect):
-		print("HEART ATTACK")
+		# AUDIO
+		pass
 
 
 # GAME LOOP
