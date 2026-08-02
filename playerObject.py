@@ -16,7 +16,7 @@ class Player:
 
 		# self.rect = pygame.Rect((self.x_pos, self.y_pos), (self.width, self.height))
 
-		self.image = pygame.transform.scale(pygame.image.load("assets/trash/beer_bottle.png"), (self.width, self.height))
+		self.image = pygame.transform.scale(pygame.image.load("assets/cigarette.png"), (self.width, self.height))
 
 		self.velocity_x = 1
 		self.velocity_y = 1

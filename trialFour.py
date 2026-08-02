@@ -16,7 +16,7 @@ pygame.display.set_caption("Telekinesis")
 
 
 # IMAGES
-trash_bin = pygame.transform.scale(pygame.image.load("assets/trash_bin.png"), (256, 256)) # trash_bin image
+heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256)) # trash_bin image
 
 # GAME LOOP
 running = True
@@ -39,7 +39,7 @@ while running:
 	Camera_Detection.Camera(screen)
 
 	# DRAW
-	screen.blit(trash_bin, (550, 350))
+	screen.blit(heart, (550, 350))
 	
 
 	pygame.display.update()
