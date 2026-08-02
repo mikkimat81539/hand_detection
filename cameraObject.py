@@ -33,7 +33,7 @@ class Camera_Detection:
 		min_hand_detection_confidence = 0.5,
 		min_hand_presence_confidence = 0.5,
 		min_tracking_confidence = 0.5,
-		num_hands = 1
+		num_hands = 2
 	)	
 	
 	landmarker = HandLandmarker.create_from_options(options)
@@ -83,6 +83,7 @@ class Camera_Detection:
 
 		height, width, throwaway = frame.shape # get the actual frame dimensions
 
+
 		for i in result.hand_landmarks:
 			for j in i:
 				x = int(j.x*width)
@@ -130,8 +131,20 @@ class Camera_Detection:
 
 
 				# PLAYER MOVEMENT
-				Camera_Detection.player.player_movement(surface, (x2-x1), (y2-y1), d)
+				# Camera_Detection.player.player_movement_x(surface, (x2-x1), d)
 			
+				for hand in result.handedness:
+					for j in hand:
+						hand_type = j.category_name
+						print(hand_type)
+
+						if hand_type == "Left": # move along the x-axis
+							Camera_Detection.player.player_movement_x(surface, (x2-x1), d)
+
+						if hand_type == "Right": # move along the y-axis
+							Camera_Detection.player.player_movement_y(surface, (y2-y1), d)
+		
+
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
 

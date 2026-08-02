@@ -21,9 +21,7 @@ class Player:
 		pygame.draw.rect(surface, self.color, self.rect)	
 
 
-	def player_movement(self, surface, x, y, d):
-		# print(x, y)
-
+	def player_movement_x(self, surface, x, d):
 		if d <= 0.25:
 			self.rect.x -= self.velocity_x 	
 
@@ -35,4 +33,18 @@ class Player:
 
 			if self.rect.x >= surface.get_width()-self.width:
 				self.rect.x -= self.velocity_x
+
+
+	def player_movement_y(self, surface, y, d):
+		if d <= 0.25:
+			self.rect.y -= self.velocity_y 	
+
+			if self.rect.y <= 1:
+				self.rect.y += self.velocity_y
+
+		elif d > 0.25:
+			self.rect.y += self.velocity_y
+
+			if self.rect.y >= surface.get_height()-self.height:
+				self.rect.y -= self.velocity_y
 
