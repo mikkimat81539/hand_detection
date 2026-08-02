@@ -134,19 +134,22 @@ class Camera_Detection:
 				# Camera_Detection.player.player_movement_x(surface, (x2-x1), d)
 			
 				for hand in result.handedness:
-					for j in hand:
-						hand_type = j.category_name
-						print(hand_type)
+					for k in hand:
+						hand_type = k.category_name
+						# print(hand_type)
 
 						if hand_type == "Left": # move along the x-axis
-							Camera_Detection.player.player_movement_x(surface, (x2-x1), d)
+							Camera_Detection.player.player_movement_x(surface, d)
 
 						if hand_type == "Right": # move along the y-axis
-							Camera_Detection.player.player_movement_y(surface, (y2-y1), d)
+							Camera_Detection.player.player_movement_y(surface, d)
 		
 
 		# TURN ARRAY INTO PYGAME SURFACE
 		camArray = pygame.surfarray.make_surface(frame) # Copy an array to a new surface
+
+		# CAMERA-PLAYER COLLISION
+		Camera_Detection.player.camera_collision(camArray)
 
 		surface.blit(camArray, (0, 0)) # BLIT ONTO PYGAME SURFACE
 

@@ -14,14 +14,14 @@ class Player:
 		self.activate = False
 
 		self.velocity_x = 1
-		self.velocity_y = 2
+		self.velocity_y = 1
 
 
 	def draw_player(self, surface):
 		pygame.draw.rect(surface, self.color, self.rect)	
 
 
-	def player_movement_x(self, surface, x, d):
+	def player_movement_x(self, surface, d):
 		if d <= 0.25:
 			self.rect.x -= self.velocity_x 	
 
@@ -35,7 +35,7 @@ class Player:
 				self.rect.x -= self.velocity_x
 
 
-	def player_movement_y(self, surface, y, d):
+	def player_movement_y(self, surface, d):
 		if d <= 0.25:
 			self.rect.y -= self.velocity_y 	
 
@@ -47,4 +47,12 @@ class Player:
 
 			if self.rect.y >= surface.get_height()-self.height:
 				self.rect.y -= self.velocity_y
+
+	def camera_collision(self, surface):
+		if self.rect.colliderect(surface.get_rect()):
+			# print(f"X {True}")
+			self.rect.x += self.velocity_x
+
+			self.rect.y += self.velocity_y
+
 
