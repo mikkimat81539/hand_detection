@@ -15,6 +15,9 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Telekinesis")
 
 
+# IMAGES
+brain = pygame.transform.scale(pygame.image.load("assets/brain.png"), (128, 128))
+
 # GAME LOOP
 running = True
 
@@ -31,6 +34,9 @@ while running:
 
 	# CAMERA OBJECT
 	Camera_Detection.Camera(screen)
+
+	# DRAW
+	screen.blit(brain, (350, screen.get_height()//2))
 
 	pygame.display.update()
 

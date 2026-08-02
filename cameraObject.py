@@ -82,8 +82,6 @@ class Camera_Detection:
 
 		height, width, throwaway = frame.shape # get the actual frame dimensions
 
-		print(result.handedness)
-
 		for i in result.hand_landmarks:
 			for j in i:
 				x = int(j.x*width)
