@@ -8,6 +8,7 @@ from mediapipe.tasks.python import vision
 import time
 import numpy as np
 from numpy import *
+from playerObject import *
 
 
 class Camera_Detection:
@@ -42,6 +43,9 @@ class Camera_Detection:
 
 	if not cap.isOpened():
 		exit()
+
+	# LOAD PLAYER
+	player = Player(400, 400, 50, 50, "red")
 
 	@staticmethod
 	def Camera(surface):
@@ -82,6 +86,10 @@ class Camera_Detection:
 			for j in i:
 				x = int(j.x*width)
 				y = int(j.y*height)
+
+				Camera_Detection.player.player_movement(x, y)
+
+				Camera_Detection.player.draw_player(surface)
 
 				cv.circle(frame,(x, y), 3, (255,0,0), -1)
 

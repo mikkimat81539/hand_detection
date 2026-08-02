@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 from numpy import *
 from cameraObject import *
+from playerObject import *
 
 pygame.init()
 
@@ -23,10 +24,11 @@ while running:
 			if event.key == pygame.K_ESCAPE:
 				running = False
 
-	screen.fill("white")
+	screen.fill("black")
 
 	# CAMERA OBJECT
 	Camera_Detection.Camera(screen)
+
 
 	pygame.display.update()
 
