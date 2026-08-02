@@ -45,7 +45,7 @@ class Camera_Detection:
 		exit()
 
 	# LOAD PLAYER
-	player = Player(400, 400, 50, 50, "red")
+	player = Player(400, 250, 30, 30, "red")
 
 	@staticmethod
 	def Camera(surface):
@@ -63,7 +63,7 @@ class Camera_Detection:
 	
 		frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-		frame = cv.resize(frame, (210, 320)) # resize camera screen
+		frame = cv.resize(frame, (240, 320)) # resize camera screen
 
 		# Convert the frame received from OpenCV to a MediaPipe’s Image object.
 		mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
@@ -82,6 +82,8 @@ class Camera_Detection:
 
 		height, width, throwaway = frame.shape # get the actual frame dimensions
 
+		print(result.handedness)
+
 		for i in result.hand_landmarks:
 			for j in i:
 				x = int(j.x*width)
@@ -89,15 +91,16 @@ class Camera_Detection:
 
 
 				# MOVE PLAYER USING HANDS
-				Camera_Detection.player.player_movement(x, y, width, height)
+				# Camera_Detection.player.player_movement(surface, x, y)
+
 
 				# DISPLAY PLAYER USING HAND
-				Camera_Detection.player.player_detect(x, y)
-
 				Camera_Detection.player.draw_player(surface)
 
+				# DRAW DOTS ON HANDS
 				cv.circle(frame,(x, y), 3, (255,0,0), -1)
 
+			# DRAW LINES ON HANDS
 			for start, end in connection:
 				x1, y1 = int(i[start].x*width), int(i[start].y*height)
 				x2, y2 = int(i[end].x*width), int(i[end].y*height)

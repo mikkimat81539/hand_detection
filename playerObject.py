@@ -11,7 +11,7 @@ class Player:
 		self.color = color
 		self.rect = pygame.Rect((self.x_pos, self.y_pos), (self.width, self.height))
 
-		self.activate = False
+		# self.activate = True
 
 		self.velocity_x = 3
 		self.velocity_y = 2
@@ -20,23 +20,10 @@ class Player:
 	def draw_player(self, surface):
 		pygame.draw.rect(surface, self.color, self.rect)	
 
-	def player_detect(self, x, y):
-		if x >= 50 or y>=50:
-			self.activate = True
 
-	def player_movement(self, x, y, width, height):
-		# HORIZONTAL MOVEMENT
-		if x < width * 0.3:
-			self.rect.x -= self.velocity_x
+	def player_movement(self, surface, x, y):
+		self.rect.x += self.velocity_x
 
-		if x > width * 0.7:
-			self.rect.x += self.velocity_x
-
-
-		# VERTICAL MOVEMENT
-		if y < height * 0.3:
-			self.rect.y -= self.velocity_y
-
-		elif y > height * 0.7:
-			self.rect.y += self.velocity_y
+#		if self.rect.x >= surface.get_width() or self.rect.x <= 1:
+#			self.velocity_x *= -1
 	
