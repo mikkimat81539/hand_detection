@@ -28,9 +28,9 @@ instructions = setupFont(350, 20, "white", "Left Hand moves up and down\nRight H
 font_activate = True
 
 # IMAGES
-heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256))
+heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (150, 256))
 
-heart_rect = heart.get_rect(topleft=(600, 360))
+heart_rect = heart.get_rect(topleft=(600, 340))
 
 # PLAYER
 PLAYER = Camera_Detection().player
