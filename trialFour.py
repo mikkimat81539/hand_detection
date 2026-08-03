@@ -30,7 +30,7 @@ font_activate = True
 # IMAGES
 heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256))
 
-heart_rect = heart.get_rect(topleft=(550, 350))
+heart_rect = heart.get_rect(topleft=(600, 360))
 
 # PLAYER
 PLAYER = Camera_Detection().player
