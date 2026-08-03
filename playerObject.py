@@ -21,6 +21,7 @@ class Player:
 		self.velocity_x = 1
 		self.velocity_y = 1
 
+		self.activate = True
 
 	def draw_player(self, surface):
 		surface.blit(self.surface, (self.rect))

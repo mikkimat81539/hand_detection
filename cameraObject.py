@@ -153,5 +153,3 @@ class Camera_Detection:
 
 		surface.blit(camArray, (0, 0)) # BLIT ONTO PYGAME SURFACE
 
-#		cap.release()
-#		cv.destroyAllWindows()

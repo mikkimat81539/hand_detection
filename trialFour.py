@@ -5,6 +5,7 @@ from cameraObject import *
 from playerObject import *
 from addOns import *
 import cv2 as cv
+import time
 
 pygame.init()
 
@@ -16,8 +17,11 @@ flags = pygame.FULLSCREEN
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("You Are Your Own Worst Enemy")
 
+# CAMERA ACTIVATION
+camera_activate = True
+
 # FONT
-deathText = setupFont(400, 20)
+deathText = setupFont(400, 20, "CIGERETTES KILL")
 
 # IMAGES
 heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256))
@@ -35,14 +39,21 @@ pygame.mixer.music.play(1000)
 
 # PLAYER HEART COLLISION
 def player_heart(player, heart_rect, surface):
+	global camera_activate
+
 	if player.rect.colliderect(heart_rect):
+		# PLAY AUDIO
 		deathText.displayFont(surface)
 
 		pygame.mixer.music.stop()	
-		# AUDIO
-		print("HEART ATTACK")
+
 		flatline = pygame.mixer.music.load("audio/flatline.mp3")
 		pygame.mixer.music.play(1)
+
+		# pygame.time.delay(5000)
+	
+		camera_activate = False
+
 
 
 # GAME LOOP
@@ -63,10 +74,19 @@ while running:
 	screen.fill("black")
 
 	# CAMERA OBJECT
-	Camera_Detection.Camera(screen)
+	if camera_activate:
+		Camera_Detection.Camera(screen)
+
+	else:
+		pygame.time.delay(500)
+		Camera_Detection().cap.release()
+		cv.destroyAllWindows()	
+		running = False
+
 
 	# COLLISION
 	player_heart(PLAYER, heart_rect, screen)
+
 
 	# DRAW
 	screen.blit(heart, (heart_rect))

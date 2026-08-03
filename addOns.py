@@ -3,8 +3,8 @@ import pygame
 pygame.init()
 
 class setupFont:
-	def __init__(self, x_pos, y_pos):
-		self.text = "CIGERETTES KILL"
+	def __init__(self, x_pos, y_pos, text):
+		self.text = text
 		self.x_pos = x_pos
 		self.y_pos = y_pos
 
