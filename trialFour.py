@@ -21,7 +21,11 @@ pygame.display.set_caption("You Are Your Own Worst Enemy")
 camera_activate = True
 
 # FONT
-deathText = setupFont(400, 20, "CIGERETTES KILL")
+deathText = setupFont(400, 20, "red", "CIGERETTES KILL")
+
+instructions = setupFont(350, 20, "white", "Left Hand moves up and down\nRight Hand moves left and right")
+
+font_activate = True
 
 # IMAGES
 heart = pygame.transform.scale(pygame.image.load("assets/heart.png"), (256, 256))
@@ -40,6 +44,7 @@ pygame.mixer.music.play(1000)
 # PLAYER HEART COLLISION
 def player_heart(player, heart_rect, surface):
 	global camera_activate
+	global font_activate
 
 	if player.rect.colliderect(heart_rect):
 		# PLAY AUDIO
@@ -53,6 +58,7 @@ def player_heart(player, heart_rect, surface):
 		# pygame.time.delay(5000)
 	
 		camera_activate = False
+		font_activate = False
 
 
 
@@ -81,7 +87,6 @@ while running:
 		pygame.time.delay(500)
 		Camera_Detection().cap.release()
 		cv.destroyAllWindows()	
-		running = False
 
 
 	# COLLISION
@@ -90,7 +95,11 @@ while running:
 
 	# DRAW
 	screen.blit(heart, (heart_rect))
-		
+	
+	if font_activate:
+		instructions.displayFont(screen)	
+
+	
 	pygame.display.update()
 
 	clock.tick(60)
